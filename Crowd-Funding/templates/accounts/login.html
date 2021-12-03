@@ -1,0 +1,21 @@
+{% extends 'accounts/base.html' %}
+
+{%block title %}
+signup
+{% endblock %}
+
+{%block body%}
+<div class="container">
+    <form method="post" novalidate>
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{next}}">
+        {% include 'accounts/includes/form.html' %}
+        <br>
+        <br>
+        <button class="btn btn-primary" type="submit"> login </button>
+        <div>
+            don't have an account ? <a href="{%url 'accounts:signup' %}">sign up</a>
+        </div>
+    </form>
+</div>
+{% endblock%}

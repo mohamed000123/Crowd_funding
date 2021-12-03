@@ -1,0 +1,105 @@
+{% extends 'base.html' %} {%block title%}Home{%endblock%}
+{% block home %}active{% endblock %}
+
+{%block body%}
+<br><br>
+ <div class="input-group rounded col-12" style="box-shadow: rgb(87, 84, 84) 5px 0px 5px 3px ;">
+ <form method="post" class="form-inline my-2 my-lg-0 col-12" style="width: 100%">
+        {% csrf_token %}
+      <input class="form-control mr-sm-2 "name="search" style="width: 80%" type="search" placeholder="Search by project name or tags" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" style="width: 15%" type="submit">
+          Search</button>
+    </form>
+</div>
+<br><br><br>
+  <div class="form-group">
+    <h2> Highest rated projects</h2>
+    <input type="range" min="1" max="5" value="1" step="1" class="form-control-range" id="formControlRange">
+  </div>
+<table class="table">
+    <thead class="thead-dark">
+      <tr id="abc">
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+        <th scope="col">Category</th>
+        <th scope="col">Total Target</th>
+        <th scope="col">Start Date</th>
+        <th scope="col">End Date</th>
+        <th scope="col">Rating</th>
+        <th scope="col" colspan="2">Donations</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for info in a %}
+      <tr id="{{ forloop.counter }}" >
+        <th scope="row">{{ forloop.counter }}</th>
+        <td> <a href="{% url 'projects:project' info.project.id %}">{{ info.project.title }}</a></td>
+        <td>{{ info.project.category }}</td>
+        <td>{{ info.project.totalTarget }}</td>
+        <td>{{ info.project.start }}</td>
+        <td>{{ info.project.end }}</td>
+        <td>{{ info.rating }}</td>
+        <td>{{ info.donations }}</td>
+        <td>EGP</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+<br>
+<div class="card">
+  <div class="card-header">
+    <h2>The latest Projects</h2>
+
+  </div>
+<ul class="list-group">
+  {% for info in b %}
+  <li class="list-group-item">{{ forloop.counter }}  <a href="{% url 'projects:project' info.id %}">{{ info.title }}</a></li>
+
+  {% endfor %}
+</ul>
+</div>
+<br>
+<div class="card">
+  <div class="card-header">
+    <h2>The latest Projects selected by the admin</h2>
+
+  </div>
+<ul class="list-group">
+  {% for info in c %}
+  <li class="list-group-item">{{ forloop.counter }}  <a href="{% url 'projects:project' info.id %}">{{ info.title }}</a></li>
+
+  {% endfor %}
+</ul>
+</div>
+<br>
+<div class="card">
+  <div class="card-header">
+    <h2>The  Projects you created</h2>
+
+  </div>
+<ul class="list-group">
+  {% for info in d %}
+  <li class="list-group-item">{{ forloop.counter }}  <a href="{% url 'projects:project' info.id %}">{{ info.title }}</a></li>
+
+  {% endfor %}
+</ul>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    $('#formControlRange').change(function(){
+            va=$('#formControlRange').val();
+        $("#"+va).css('display', 'table-row');
+        $('tr').not('#'+va).css('display', 'none')
+        $("#abc").css('display', 'table-row');
+        console.log(va)
+        })
+
+    $(document).ready(function(){
+
+        $('tr').not('#1').css('display', 'none')
+        $("#abc").css('display', 'table-row');
+
+    })
+
+</script>
+{%endblock%}

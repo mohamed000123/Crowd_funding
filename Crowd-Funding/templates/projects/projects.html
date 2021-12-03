@@ -1,0 +1,37 @@
+{% extends 'base.html' %} {%block title%}Projects{%endblock%}
+{% block projects %}active{% endblock %}
+{%block body%}
+<a href="/pro/add" class="btn btn-primary m-3">Add Project</a>
+
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+        <th scope="col">Category</th>
+        <th scope="col">Total Target</th>
+        <th scope="col">Start Date</th>
+        <th scope="col">End Date</th>
+        <th scope="col">Rating</th>
+        <th scope="col" colspan="2">Donations</th>
+
+      </tr>
+    </thead>
+    <tbody>
+    {% for info in data %}
+      <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td> <a href="{% url 'projects:project' info.project.id %}">{{ info.project.title }}</a></td>
+        <td>{{ info.project.category }}</td>
+        <td>{{ info.project.totalTarget }}</td>
+        <td>{{ info.project.start }}</td>
+        <td>{{ info.project.end }}</td>
+        <td>{{ info.rating }}</td>
+        <td>{{ info.donations }}</td>
+        <td>EGP</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+{%endblock%}

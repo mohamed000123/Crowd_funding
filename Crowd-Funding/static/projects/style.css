@@ -1,0 +1,64 @@
+.Skills {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+  padding-right: 10px;
+  transition: 0.5s;
+}
+
+.Skills:hover {
+  filter: blur(0px);
+  opacity: 1;
+}
+.Skills {
+  min-width: 180px;
+  text-align: right;
+  padding-right: 20px;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 2px;
+}
+
+.Skills .rating {
+  position: relative;
+  display: flex;
+  margin: 10px 0;
+  flex-direction: row-reverse;
+}
+
+.Skills .rating .input {
+  position: relative;
+  width: 20px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-appearance: none;
+  appearance: none;
+  overflow: hidden;
+}
+
+.Skills .rating .input::before {
+  content: "\f005";
+  position: absolute;
+  font-family: fontAwesome;
+  font-size: 34px;
+  position: absolute;
+  left: 4px;
+  color: #030b0f;
+  transition: 0.5s;
+}
+
+.Skills .rating .input:nth-child(2n + 1)::before {
+  right: 4px;
+  left: initial;
+}
+
+.Skills .rating .input:hover ~ .input::before,
+.Skills .rating .input:hover::before,
+.Skills .rating .input:checked ~ .input::before,
+.Skills .rating .input:checked::before {
+  color: #1f9cff;
+}
