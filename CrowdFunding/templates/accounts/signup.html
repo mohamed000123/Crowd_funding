@@ -1,0 +1,23 @@
+{% extends 'accounts/base.html' %}
+   
+ {%block title %}
+  signup
+ {% endblock %}
+
+{%block body%}
+<div class="container">
+    <form method="post" novalidate enctype="multipart/form-data">
+        {% csrf_token %}
+        {% include 'accounts/includes/form.html' %}
+        <br>
+        <label>Profile Picture:</label>
+        <input type="file" name="pic"  accept="image/*">
+        <br>
+        <br>
+        <button class="btn btn-primary" type="submit" > create an account </button>
+    </form>
+    <div>
+        already have an account ? <a href="{%url 'accounts:login' %}">log in</a>
+    </div>
+</div>
+{% endblock%}

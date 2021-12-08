@@ -1,0 +1,114 @@
+{% extends 'base.html' %} {%block title%}Add Projects{%endblock%} {%block style%}
+<script>
+  function validator()
+  {
+    const dt = new Date()
+    let start = document.getElementById('start').value
+    let end = document.getElementById('end').value
+
+    if (start >= dt.toISOString().slice(0, 10)){
+      if (start < end){
+        return true
+      }
+      else{
+        alert('End date must be after start date')
+        return false
+      }
+      
+    }
+    else{
+      alert('start date must be today or after today')
+      return false
+    }
+  }
+  
+
+  const addTag = () => {
+    const tag = document.getElementById('tagsIn').value.trim().toLowerCase()
+    if (tag){
+      document.getElementById('tagsIn').value = ''
+      document.getElementById('tagsShow').value += `${tag},`
+      document.getElementById('tagsTrue').value += `${tag},`
+    }
+  }
+</script>
+{%endblock%}
+
+{%block body%}
+<form action="" method="post" onsubmit="return validator()" enctype="multipart/form-data">
+  {% csrf_token %}
+
+    <div class="form-group m-3">
+
+      <div class="input-group m-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" >Title</span>
+        </div>
+        <input required name="title" type="text" class="form-control" placeholder="Title" aria-label="Username" aria-describedby="basic-addon1">
+      </div>
+
+      <div class="input-group m-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Details</span>
+        </div>
+        <textarea required name="details" class="form-control" aria-label="With textarea"></textarea>
+      </div>
+
+      <div class="input-group m-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Category</span>
+        </div>
+        <select required class="form-control" name="category" id="exampleFormControlSelect1">
+          <option>Charity</option>
+          <option>Technology</option>
+          <option>Industry</option>
+        </select>
+      </div>
+
+      </div>
+      <div class="input-group m-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Total target</span>
+        </div>
+        <input required type="number" name="totaltarget" class="form-control" aria-label="Amount (to the nearest dollar)">
+        <div class="input-group-append">
+          <span class="input-group-text">EGP</span>
+        </div>
+      </div>
+
+      <div class="input-group m-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Start date</span>
+        </div>
+        <input required name="start" type="date" class="form-control" placeholder="Start date" aria-label="Start date" aria-describedby="basic-addon1" id="start">
+      </div>
+
+      <div class="input-group m-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">End date</span>
+        </div>
+        <input required name="end" type="date" class="form-control" placeholder="End date" aria-label="End date" aria-describedby="basic-addon1" id="end">
+      </div>
+
+      <div class="input-group mt-3 ml-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Tags</span>
+        </div>
+        <input id="tagsIn" type="text" class="form-control" placeholder="Add Tags" aria-label="Tags" aria-describedby="basic-addon1">
+        <button id="tagsAdd" type="button" class="btn btn-primary" style="width: 100px;" onclick="addTag()">Add</button>
+      </div>
+      <input disabled id="tagsShow" type="text" class="form-control ml-3" placeholder="Tags" aria-label="Tags" aria-describedby="basic-addon1">
+      <input hidden name="tags" id="tagsTrue" type="text" class="form-control ml-3" placeholder="Tags" aria-label="Tags" aria-describedby="basic-addon1">
+
+
+      <div class="m-3">
+        <label class="d-inline">Project images</label>
+        <input name="images" type="file" multiple accept="image/*">
+      </div>
+      
+        <button type="submit" class="btn btn-primary">Add Project</button>
+        <button type="reset" class="btn btn-secondary">Reset</button>
+
+    </form>
+
+{%endblock%}
